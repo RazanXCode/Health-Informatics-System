@@ -1,0 +1,54 @@
+<div class="container">
+    <h2>Create New Appointment</h2>
+    
+    <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="doctor">Select Doctor</label>
+        <select 
+          id="doctor" 
+          class="form-control" 
+          formControlName="doctorUserId"
+          [class.is-invalid]="doctorUserId?.invalid && (doctorUserId?.dirty || doctorUserId?.touched)">
+          <option value="" disabled selected>Select a doctor</option>
+          <option *ngFor="let doctor of doctors$ | async" [value]="doctor.userId">
+            {{ doctor.firstName }} {{ doctor.lastName }} - {{ doctor.specialty }}
+          </option>
+        </select>
+        <div *ngIf="doctorUserId?.invalid && (doctorUserId?.dirty || doctorUserId?.touched)" class="invalid-feedback">
+          Doctor is required
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="date">Appointment Date</label>
+        <input 
+          type="datetime-local" 
+          id="date" 
+          class="form-control" 
+          formControlName="date"
+          [class.is-invalid]="date?.invalid && (date?.dirty || date?.touched)">
+        <div *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="invalid-feedback">
+          Date is required
+        </div>
+      </div>
+  
+      <button 
+        type="submit" 
+        class="btn btn-primary" 
+        [disabled]="appointmentForm.invalid || (creating$ | async)">
+        <span *ngIf="!(creating$ | async)">Create Appointment</span>
+        <span *ngIf="creating$ | async">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Creating...
+        </span>
+      </button>
+  
+      <div *ngIf="error$ | async as error" class="alert alert-danger mt-3">
+        Error: {{ error.message || error }}
+      </div>
+  
+      <div *ngIf="created$ | async" class="alert alert-success mt-3">
+        Appointment created successfully!
+      </div>
+    </form>
+  </div>

@@ -1,0 +1,37 @@
+<div class="summary-container">
+    <div *ngIf="loading$ | async" class="loading">Loading...</div>
+    
+    <div *ngIf="error$ | async as error" class="error">
+      Error loading summary: {{ error.message }}
+    </div>
+  
+    <div *ngIf="summary$ | async as summary">
+      <h2>Doctors Summary</h2>
+      
+      <button (click)="exportToPdf()" class="export-btn">
+        Export to PDF
+      </button>
+      
+      <table class="doctors-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Specialty</th>
+            <th>Email</th>
+            <th>Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let doctor of summary.doctors">
+            <td>{{ doctor.firstName }} {{ doctor.lastName }}</td>
+            <td>{{ doctor.specialty }}</td>
+            <td>{{ doctor.email }}</td>
+            <td>{{ doctor.phone }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <h2>Doctors Summary</h2>
