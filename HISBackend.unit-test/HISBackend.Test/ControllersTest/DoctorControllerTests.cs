@@ -51,7 +51,7 @@ namespace HISBackend.Tests.Controllers
                     Phone = "1234567890",
                     Role = RoleType.Doctor,
                     Specialty = SpecialtyType.General,
-                    PasswordHash = "hashedpassword"
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("hashedpassword")
                 }
             };
 

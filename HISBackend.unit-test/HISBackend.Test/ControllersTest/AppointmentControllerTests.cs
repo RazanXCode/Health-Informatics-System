@@ -49,7 +49,7 @@ namespace HISBackend.Tests.Controllers
                 Phone = "1234567890",
                 Role = RoleType.Doctor,
                 Specialty = SpecialtyType.General,
-                PasswordHash = "hashedpassword"
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("hashedpassword")
             };
 
             var patient = new User
@@ -60,7 +60,7 @@ namespace HISBackend.Tests.Controllers
                 Email = "raghad@gmail.com",
                 Phone = "0987654321",
                 Role = RoleType.Patient,
-                PasswordHash = "hashedpassword"
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("hashedpassword")
             };
 
             _context.Users.AddRange(doctor, patient);

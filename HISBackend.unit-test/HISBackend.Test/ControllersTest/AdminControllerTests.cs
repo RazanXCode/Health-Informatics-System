@@ -44,13 +44,30 @@ namespace HISBackend.Tests.Controllers
             // Add test doctor
             var doctors = new List<User>
             {
-                new User { UserId = Guid.NewGuid(), FirstName = "Raghad", LastName = "Alahmadi", Email = "Raghad@gmail.com", Phone = "1234567890", Role = RoleType.Doctor, Specialty = SpecialtyType.General, PasswordHash = "hashedpassword" }
+                new User { 
+                    UserId = Guid.NewGuid(), 
+                    FirstName = "Raghad", 
+                    LastName = "Alahmadi", 
+                    Email = "Raghad@gmail.com", 
+                    Phone = "1234567890", 
+                    Role = RoleType.Doctor, 
+                    Specialty = SpecialtyType.General, 
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("doctor123") 
+                }
             };
 
             // Add test patient
             var patients = new List<User>
             {
-                new User { UserId = Guid.NewGuid(), FirstName = "Alex", LastName = "Jan", Email = "jan@gmail.com", Phone = "0987654321", Role = RoleType.Patient, PasswordHash = "hashedpassword" }
+                new User { 
+                    UserId = Guid.NewGuid(), 
+                    FirstName = "Alex", 
+                    LastName = "Jan", 
+                    Email = "jan@gmail.com", 
+                    Phone = "0987654321", 
+                    Role = RoleType.Patient, 
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("patient123")  
+                }
             };
 
             _context.Users.AddRange(doctors);
