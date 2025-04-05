@@ -556,7 +556,6 @@ C:\Users\ragha\Source\Repos\Health-Informatics-System\Backend\HISBackend\obj\Deb
 C:\Users\ragha\Source\Repos\Health-Informatics-System\Backend\HISBackend\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.HISBackend.props
 C:\Users\ragha\Source\Repos\Health-Informatics-System\Backend\HISBackend\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.HISBackend.props
 C:\Users\ragha\Source\Repos\Health-Informatics-System\Backend\HISBackend\obj\Debug\net9.0\staticwebassets.pack.json
-C:\Users\ragha\Source\Repos\Health-Informatics-System\Backend\HISBackend\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\ragha\Source\Repos\Health-Informatics-System\Backend\HISBackend\obj\Debug\net9.0\HISBackend.csproj.Up2Date
 C:\Users\ragha\Source\Repos\Health-Informatics-System\Backend\HISBackend\obj\Debug\net9.0\HISBackend.dll
 C:\Users\ragha\Source\Repos\Health-Informatics-System\Backend\HISBackend\obj\Debug\net9.0\refint\HISBackend.dll
