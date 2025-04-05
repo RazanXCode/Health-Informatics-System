@@ -7,6 +7,7 @@ import { loadSummary, loadSummarySuccess, loadSummaryFailure } from './summary.a
 
 @Injectable()
 export class SummaryEffects {
+  // Effect to handle the loading of summary
   loadSummary$ = createEffect(() => 
     this.actions$.pipe(
       ofType(loadSummary),

@@ -1,6 +1,7 @@
 import { AdminSummaryDto } from "../../models/summary.model";
 
 
+// The state interface for the summary feature
 export interface SummaryState {
   summary: AdminSummaryDto | null;
   loading: boolean;

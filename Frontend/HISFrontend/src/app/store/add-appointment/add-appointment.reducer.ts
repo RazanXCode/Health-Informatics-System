@@ -10,21 +10,28 @@ export const initialState: AppointmentState = {
 
 export const appointmentReducer = createReducer(
   initialState,
+
+  // Handle the creation of an appointment
   on(AppointmentActions.createAppointment, state => ({
     ...state,
     creating: true,
     created: false,
     error: null
   })),
+
+  // Handle the success of appointment creation
   on(AppointmentActions.createAppointmentSuccess, state => ({
     ...state,
     creating: false,
     created: true
   })),
+
+  // Handle the failure of appointment creation
   on(AppointmentActions.createAppointmentFailure, (state, { error }) => ({
     ...state,
     creating: false,
     error
   })),
+  // Reset the appointment state
   on(AppointmentActions.resetAppointmentState, () => initialState)
 );

@@ -7,6 +7,7 @@ import * as DoctorActions from './doctor.actions';
 
 @Injectable()
 export class DoctorEffects {
+  // Effect to handle the loading of doctors
   loadDoctors$ = createEffect(() =>
     this.actions$.pipe(
       ofType(DoctorActions.loadDoctors),
@@ -23,8 +24,4 @@ export class DoctorEffects {
     private actions$: Actions,
     private doctorService: DoctorService
   ) {}
-}
-
-export function createAppointment(createAppointment: any): import("rxjs").OperatorFunction<import("@ngrx/store").Action<string>, any> {
-  throw new Error('Function not implemented.');
 }

@@ -7,7 +7,7 @@ export const createAppointment = createAction(
 );
 export const createAppointmentSuccess = createAction(
   '[Appointment] Create Appointment Success',
-  props<{ appointment: any }>() // Adjust type based on your API response
+  props<{ appointment: any }>() 
 );
 export const createAppointmentFailure = createAction(
   '[Appointment] Create Appointment Failure',

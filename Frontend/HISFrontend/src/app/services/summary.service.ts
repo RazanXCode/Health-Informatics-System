@@ -7,10 +7,10 @@ import { AdminSummaryDto } from '../models/summary.model';
   providedIn: 'root'
 })
 export class SummaryService {
-  private apiUrl = 'http://api/admin/summary'; // todo
+  private apiUrl = 'https://localhost:44313/api/Admin/summary'; // todo
 
   constructor(private http: HttpClient) {}
-
+// Fetches the summary data from the API
   getSummary(): Observable<AdminSummaryDto> {
     return this.http.get<AdminSummaryDto>(this.apiUrl);
   }

@@ -7,12 +7,14 @@ import * as AppointmentActions from './add-appointment.actions';
 
 @Injectable()
 export class AppointmentEffects {
+
+  // Effect to handle the creation of an appointment
   createAppointment$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AppointmentActions.createAppointment),
       mergeMap(({ appointment }) =>
         this.appointmentService.createAppointment(appointment).pipe(
-          map(appointment => AppointmentActions.createAppointment({ appointment })),
+          map(appointment => AppointmentActions.createAppointmentSuccess({ appointment })),
           catchError(error => of(AppointmentActions.createAppointmentFailure({ error })))
         )
       )

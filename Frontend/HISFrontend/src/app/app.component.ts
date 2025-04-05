@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { AddAppointmentComponent } from "./components/add-appointment/add-appointment.component";
-import { DoctorSummaryComponent } from "./components/doctor-summary/doctor-summary.component";
 import { CommonModule } from '@angular/common';
+import { AdminDashboardComponent } from "./components/dashboards/admin-dashboard/admin-dashboard.component";
+import { HeaderComponent } from "./components/header/header.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, DoctorSummaryComponent],
+  imports: [CommonModule, AdminDashboardComponent, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

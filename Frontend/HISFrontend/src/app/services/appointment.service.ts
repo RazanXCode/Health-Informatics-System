@@ -7,10 +7,10 @@ import { AppointmentCreate } from '../models/appointment.model';
   providedIn: 'root'
 })
 export class AppointmentService {
-  private apiUrl = `http//api/appointment`; //todo
+  private apiUrl = `https://localhost:44313/api/Appointment`; //todo
 
   constructor(private http: HttpClient) {}
-
+  //post request to create an appointment
   createAppointment(appointment: AppointmentCreate): Observable<any> {
     return this.http.post<any>(this.apiUrl, appointment);
   }

@@ -12,6 +12,9 @@ import { AppointmentEffects } from './store/add-appointment/add-appointment.effe
 import { DoctorEffects } from './store/add-appointment/doctor.effects';
 import { SummaryEffects } from './store/summery/summary.effects';
 import { provideHttpClient } from '@angular/common/http';
+import { statisticsReducer } from './store/statistics/statistics.reducer';
+import { StatisticsEffects } from './store/statistics/statistics.effects';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,14 +22,16 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes), 
     provideClientHydration(withEventReplay()), 
     provideHttpClient(),
+    provideCharts(withDefaultRegisterables()),
 
     provideStore(
       {
-             // Register NgRx store
-
+       // Register NgRx store
         appointment: appointmentReducer,
-        doctor: doctorReducer,
+        doctors: doctorReducer,
         summary: summaryReducer,
+        statistics: statisticsReducer
+        
       }
     ),
 
@@ -34,8 +39,8 @@ export const appConfig: ApplicationConfig = {
      provideEffects([
       AppointmentEffects,
       DoctorEffects,
-      SummaryEffects
-      
+      SummaryEffects,
+      StatisticsEffects
      ])
 
     
