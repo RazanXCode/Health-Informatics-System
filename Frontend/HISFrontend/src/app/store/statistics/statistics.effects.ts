@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { StatisticsService } from '../../services/statistics.service';
+import { StatisticsService } from '../../services/staistics/statistics.service';
 import * as StatisticsActions from './statistics.actions';
 
 @Injectable()
@@ -24,5 +24,5 @@ export class StatisticsEffects {
   constructor(
     private actions$: Actions,
     private statisticsService: StatisticsService
-  ) {}
+  ) { }
 }

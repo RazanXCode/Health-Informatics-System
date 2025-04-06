@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { DoctorService } from '../../services/doctor.service';
+import { DoctorService } from '../../services/add-appointment/doctor.service';
 import * as DoctorActions from './doctor.actions';
 
 @Injectable()
@@ -23,5 +23,5 @@ export class DoctorEffects {
   constructor(
     private actions$: Actions,
     private doctorService: DoctorService
-  ) {}
+  ) { }
 }

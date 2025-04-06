@@ -3,7 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { AdminStatistics } from '../../models/statistics.model';
-import { StatisticsService } from '../../services/statistics.service';
+import { StatisticsService } from '../../services/staistics/statistics.service';
 
 @Component({
   selector: 'app-charts',
@@ -15,8 +15,8 @@ import { StatisticsService } from '../../services/statistics.service';
 export class ChartsComponent implements OnInit {
   // Holds the statistics data fetched from the API
   statistics: AdminStatistics | null = null;
-  loading = true; 
-  error: string | null = null; 
+  loading = true;
+  error: string | null = null;
 
   /** Appointment Status Chart Configuration */
   public statusChartOptions: ChartConfiguration['options'] = {
@@ -58,7 +58,7 @@ export class ChartsComponent implements OnInit {
   constructor(
     private statisticsService: StatisticsService,
     @Inject(PLATFORM_ID) private platformId: Object // Detects if the app is running in a browser (ng2 charts requires a DOM)
-  ) {}
+  ) { }
 
   // runs when the component is initialized 
   ngOnInit(): void {
@@ -69,7 +69,7 @@ export class ChartsComponent implements OnInit {
   }
 
   // Fetches statistics data from the API and updates the charts
-   
+
   loadStatistics(): void {
     this.loading = true;
     this.error = null;
@@ -97,10 +97,10 @@ export class ChartsComponent implements OnInit {
     });
   }
 
-  
+
   //Updates the chart data dynamically based on API response
-   //The fetched statistics data
-   
+  //The fetched statistics data
+
   updateCharts(data: AdminStatistics): void {
     // Update Appointment Status Chart
     this.statusChartData = {

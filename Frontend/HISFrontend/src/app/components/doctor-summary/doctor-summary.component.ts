@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { AdminSummaryDto } from '../../models/summary.model';
 import { SummaryState } from '../../store/summery/summary.state';
 import { CommonModule } from '@angular/common';
-import { PdfExportService } from '../../services/pdf-export.service';
+import { PdfExportService } from '../../services/pdf-export/pdf-export.service';
 
 interface AppState {
   summary: SummaryState;
