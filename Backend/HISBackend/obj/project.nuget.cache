@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Db3tmyUdJe4=",
+  "dgSpecHash": "iv2MQo3CSeI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\ragha\\source\\repos\\Health-Informatics-System\\Backend\\HISBackend\\HISBackend.csproj",
+  "projectFilePath": "C:\\Users\\ragha\\OneDrive\\Desktop\\HIS2\\Health-Informatics-System\\Backend\\HISBackend\\HISBackend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ragha\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\ragha\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
