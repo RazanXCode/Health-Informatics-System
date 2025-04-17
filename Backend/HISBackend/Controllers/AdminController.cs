@@ -17,9 +17,8 @@ namespace HISBackend.Controllers
     public class AdminController : ControllerBase
     {
         private readonly MyAppDbContext _context;
-        private readonly ICacheService _cacheService;
 
-        public AdminController(MyAppDbContext context, ICacheService cacheService)
+        public AdminController(MyAppDbContext context)
         {
             _context = context;
         }
