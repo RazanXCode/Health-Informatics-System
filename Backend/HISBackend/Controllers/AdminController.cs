@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using HISBackend.Services;
+
 
 namespace HISBackend.Controllers
 {
@@ -22,8 +22,6 @@ namespace HISBackend.Controllers
         public AdminController(MyAppDbContext context, ICacheService cacheService)
         {
             _context = context;
-            _cacheService = cacheService;
-            _cacheService = cacheService;
         }
 
         /// <summary>
