@@ -68,6 +68,7 @@ builder.Services.AddScoped<ISmsService, SmsService>();
 
 // Add the cache service
 builder.Services.AddScoped<ICacheService, CacheService>();
+builder.Services.AddMemoryCache();
 
 // Add Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -111,6 +112,7 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "HIS API v1");
     });
 }
+builder.Services.AddMemoryCache();
 
 // Apply migrations automatically
 using (var scope = app.Services.CreateScope())

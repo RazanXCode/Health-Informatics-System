@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Bugsnag;
-
+using HISBackend.Services;
 namespace HISBackend.Controllers
 {
     [Route("api/[controller]")]
@@ -18,12 +18,15 @@ namespace HISBackend.Controllers
     {
         private readonly MyAppDbContext _context;
         private readonly IClient _bugsnag;
+        private readonly ICacheService _cacheService;
 
 
-        public NoteController(MyAppDbContext context, IClient bugsnag)
+        public NoteController(MyAppDbContext context, IClient bugsnag, ICacheService cacheService)
         {
             _context = context;
             _bugsnag = bugsnag;
+            _cacheService = cacheService;
+
         }
 
 
@@ -33,20 +36,30 @@ namespace HISBackend.Controllers
         [HttpGet("patient/{patientUserId}")]
         public async Task<ActionResult<IEnumerable<NoteDto>>> GetNotesByPatient(Guid patientUserId)
         {
-            var notes = await _context.Notes
-                .Include(n => n.Appointment)
-                    .ThenInclude(a => a.Patient)
-                .Include(n => n.MedicalHistory)
-                .Where(n => n.Appointment.Patient.UserId == patientUserId)
-                .Select(n => new NoteDto
-                {
-                    NoteId = n.NoteId,
-                    AppointmentId = n.Appointment.AppointmentId,
-                    MedicalHistoryId = n.MedicalHistory != null ? n.MedicalHistory.HistoryID : (Guid?)null,
-                    NoteText = n.NoteText
-                })
-                .AsNoTracking()
-                .ToListAsync();
+            // Use cache with a key specific to this patient's notes
+            var notes = await _cacheService.GetOrAddAsync(
+                $"patient_notes_{patientUserId}",
+                async () => {
+                    return await _context.Notes
+                        .Include(n => n.Appointment)
+                            .ThenInclude(a => a.Patient)
+                        .Include(n => n.MedicalHistory)
+                        .Where(n => n.Appointment.Patient.UserId == patientUserId)
+                        .Select(n => new NoteDto
+                        {
+                            NoteId = n.NoteId,
+                            AppointmentId = n.Appointment.AppointmentId,
+                            MedicalHistoryId = n.MedicalHistory != null ? n.MedicalHistory.HistoryID : (Guid?)null,
+                            NoteText = n.NoteText
+                        })
+                        .AsNoTracking()
+                        .ToListAsync();
+                },
+                // Cache for 10 minutes absolute time
+                TimeSpan.FromMinutes(10),
+                // With a sliding expiration of 2 minutes
+                TimeSpan.FromMinutes(2)
+            );
 
             return Ok(notes);
         }
