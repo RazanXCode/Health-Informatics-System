@@ -8,6 +8,7 @@ using Bugsnag.AspNet.Core;
 using Bugsnag;
 using Microsoft.AspNetCore.Diagnostics;
 using HISBackend.Services;
+using StackExchange.Redis;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add BugSnag configuration
 
 
-builder.Services.AddBugsnag(configuration => {
+builder.Services.AddBugsnag(configuration =>
+{
     configuration.ApiKey = "5737c307fc96e3e8e3f5db6a74363fbb";
     configuration.AppVersion = "1.0.0";
     configuration.ReleaseStage = builder.Environment.EnvironmentName;
@@ -31,7 +33,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp",
     builder => builder
-            .WithOrigins("http://localhost:4200") 
+            .WithOrigins("http://localhost:4200")
             .AllowAnyHeader()
             .AllowAnyMethod());
 
@@ -66,6 +68,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.Configure<TwilioSettings>(builder.Configuration.GetSection("TwilioSettings"));
 builder.Services.AddScoped<ISmsService, SmsService>();
 
+// Register Redis and Imemory 
+builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("localhost:6379")); // Use cloud string if needed
+builder.Services.AddMemoryCache();
+
+
+
 // Add Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -83,12 +91,15 @@ var app = builder.Build();
 
 
 // Add global error handling
-app.UseExceptionHandler(errApp => {
-    errApp.Run(async context => {
+app.UseExceptionHandler(errApp =>
+{
+    errApp.Run(async context =>
+    {
         var bugsnag = context.RequestServices.GetService<IClient>();
         var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
 
-        bugsnag.Notify(exception, report => {
+        bugsnag.Notify(exception, report =>
+        {
             report.Event.Metadata.Add("RequestPath", context.Request.Path);
             report.Event.Metadata.Add("RequestMethod", context.Request.Method);
         });
@@ -126,7 +137,8 @@ app.UseExceptionHandler(exceptionHandlerApp =>
 
         if (exceptionHandlerFeature?.Error != null)
         {
-            bugsnag.Notify(exceptionHandlerFeature.Error, report => {
+            bugsnag.Notify(exceptionHandlerFeature.Error, report =>
+            {
                 report.Event.Metadata.Add("Path", context.Request.Path);
                 report.Event.Metadata.Add("Method", context.Request.Method);
             });
@@ -141,6 +153,11 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.UseCors("AllowAngularApp");
+
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 
 app.Run();
 
