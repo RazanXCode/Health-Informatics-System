@@ -27,6 +27,13 @@ builder.Services.AddBugsnag(configuration => {
 // Add services to the container
 builder.Services.AddControllers();
 
+// Redis Configuration
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+    options.InstanceName = "RedisCachingDemo_";
+});
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp",
