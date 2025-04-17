@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using HISBackend.Services;
 
 namespace HISBackend.Controllers
 {
@@ -16,10 +17,13 @@ namespace HISBackend.Controllers
     public class AdminController : ControllerBase
     {
         private readonly MyAppDbContext _context;
+        private readonly ICacheService _cacheService;
 
-        public AdminController(MyAppDbContext context)
+        public AdminController(MyAppDbContext context, ICacheService cacheService)
         {
             _context = context;
+            _cacheService = cacheService;
+            _cacheService = cacheService;
         }
 
         /// <summary>
@@ -32,6 +36,7 @@ namespace HISBackend.Controllers
         {
             var summary = new AdminSummaryDto
             {
+
                 Doctors = await _context.Users
                     .Where(u => u.Role == RoleType.Doctor)
                     .Select(u => new DoctorDto  // Changed to DoctorDto
