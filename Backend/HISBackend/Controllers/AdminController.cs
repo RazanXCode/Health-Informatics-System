@@ -70,6 +70,7 @@ namespace HISBackend.Controllers
 
         [HttpGet("statistics")]
         [Authorize(Roles = "Admin")]
+
         public async Task<ActionResult<AdminStatisticsDto>> GetStatistics()
         {
             var today = DateTime.Today;
