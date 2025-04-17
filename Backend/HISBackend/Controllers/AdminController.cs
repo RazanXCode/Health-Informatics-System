@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 
+
 namespace HISBackend.Controllers
 {
     [Route("api/[controller]")]
@@ -32,6 +33,7 @@ namespace HISBackend.Controllers
         {
             var summary = new AdminSummaryDto
             {
+
                 Doctors = await _context.Users
                     .Where(u => u.Role == RoleType.Doctor)
                     .Select(u => new DoctorDto  // Changed to DoctorDto
@@ -70,6 +72,7 @@ namespace HISBackend.Controllers
 
         [HttpGet("statistics")]
         [Authorize(Roles = "Admin")]
+
         public async Task<ActionResult<AdminStatisticsDto>> GetStatistics()
         {
             var today = DateTime.Today;
