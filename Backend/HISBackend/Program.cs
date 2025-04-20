@@ -66,6 +66,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.Configure<TwilioSettings>(builder.Configuration.GetSection("TwilioSettings"));
 builder.Services.AddScoped<ISmsService, SmsService>();
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(80); // Use HTTP only
+});
+
 // Add Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
